@@ -1,40 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# HealthCare Project
 
-## Getting Started
+This project is a decentralized healthcare management system built on the Ethereum blockchain using Solidity smart contracts, with a front-end implemented in Next.js and styled using Tailwind CSS. The project utilizes Alchemy for hosting the smart contract and Ether.js for interacting with the blockchain. The application is developed using TypeScript for enhanced type safety and maintainability.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Patient Management:**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  - Add patient details including name, age, gender, blood type, allergies, diagnosis, and treatment.
+  - Update existing patient details.
+  - Retrieve all patient records or specific records by ID.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- **Doctor Authorization:**
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+  - Only the contract owner can add patient details.
+  - Authorized doctors can update patient details.
+  - The owner can authorize or revoke doctors' permissions.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+- **Event Emission:**
+  - Emits events when patients are added, updated, and when doctors are authorized or revoked.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Smart Contract
 
-## Learn More
+The smart contract is written in Solidity and includes the following key components:
 
-To learn more about Next.js, take a look at the following resources:
+- **Structs and Enums:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+  - `PatientDetails`: Stores patient information.
+  - `Gender`: Enum to represent patient gender (Male/Female).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Modifiers:**
 
-## Deploy on Vercel
+  - `OnlyOwner`: Restricts functions to the contract owner.
+  - `OnlyAuthorized`: Restricts functions to authorized doctors or the owner.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Functions:**
+  - `authorizeDoctor(address doctor)`: Authorizes a doctor.
+  - `revokeDoctor(address doctor)`: Revokes a doctor's authorization.
+  - `AddPatientDetails(...)`: Adds a new patient's details.
+  - `updatePatientDetails(...)`: Updates an existing patient's details.
+  - `getPatientDetails()`: Returns all patient records.
+  - `getById(uint id)`: Returns patient details by ID.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## Front-End
+
+The front-end is developed using Next.js and styled with Tailwind CSS. It provides a user-friendly interface for managing patient records and authorizing doctors.
+
+- **Next.js:** Used for building the server-side rendered front-end.
+- **Tailwind CSS:** Used for responsive and modern UI styling.
+- **TypeScript:** Ensures type safety and better code quality.
+
+## Blockchain Interaction
+
+- **Ether.js:** Used for interacting with the Ethereum blockchain.
+- **Alchemy:** Hosts the smart contract and provides API endpoints for blockchain interactions.
+
+## Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/your-repo/healthcare-project.git
+   cd healthcare-project
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables:**
+   Create a `.env.local` file and add the following:
+
+   ```env
+   NEXT_PUBLIC_ALCHEMY_API_KEY=your-alchemy-api-key
+   NEXT_PUBLIC_CONTRACT_ADDRESS=your-contract-address
+   ```
+
+4. **Run the application:**
+   ```bash
+   npm run dev
+   ```
+
+## Usage
+
+1. **Deploy the smart contract:**
+   - Use Hardhat or another deployment tool to deploy the smart contract to an Ethereum testnet.
+2. **Authorize doctors:**
+
+   - As the contract owner, authorize doctors to update patient records.
+
+3. **Manage patient records:**
+   - Add or update patient details through the front-end interface.
+
+## License
+
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [Ethereum](https://ethereum.org/)
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Alchemy](https://www.alchemy.com/)
+- [Ether.js](https://docs.ethers.io/)
+
+## Contact
+
+For any questions or suggestions, please reach out to [Shubham Danecha](mailto:shubhamdanecha789@gmail.com).
